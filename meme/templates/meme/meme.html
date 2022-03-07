@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'meme/css/meme.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Memes!</title>
+
+</head>
+<body>
+    
+    {% include 'navbar.html' %}
+    <br>
+    <br>
+    
+    <div>
+        {% if IS_NEW %}
+        <form method="post" >{% csrf_token %}<button style="color: red;" type="submit" name="NEW" value="NEW">SORT BY NEWEST</button></form>
+        {% else %}
+        <form method="post" >{% csrf_token %}<button  type="submit" name="NEW" value="NEW">SORT BY NEWEST</button></form>
+        {% endif %}
+        <br>
+
+        {% if IS_LIKE %}
+        <form method="post" > {% csrf_token %}<button style="color: red;" type="submit" name="LIKE" value="LIKE">SORT BY MOST LIKED</button></form>
+        {% else %}
+        <form method="post" > {% csrf_token %}<button  type="submit" name="LIKE" value="LIKE">SORT BY MOST LIKED</button></form>
+        {% endif %}
+    </div>
+
+    {% for obj in memes.all %}
+
+
+
+        <div class = "meme">
+            <h2 class="title">
+                {{obj.title}}
+            </h2>
+            <br>
+            <br>
+            <img src="{{obj.image.url}}" >
+            <br>
+            <p class="karbar">
+                meme by : {{obj.karbar.username}} &nbsp;&nbsp; {{obj.timestamp}}
+            </p>
+
+
+            <form method="post" id = "{{obj.pk}}">{% csrf_token %} 
+                <input type="hidden" name="pk" value="{{obj.pk}}">
+                <button onclick="LikeMeme('{{obj.pk}}')" type="button" id="btn{{obj.pk}}">
+                    LIKE : {{obj.likes}}
+                </button>
+            </form>
+
+        </div>
+
+    
+
+
+
+        <br>
+        <br>
+
+    {% endfor %}
+    
+    
+        <br><br>
+        <br><br>
+        <br>
+    
+<div class = "main">
+
+    <div class="meme_form">
+
+        <form method="post" enctype="multipart/form-data" > {% csrf_token %}
+            {{form.title.label}}
+            {{form.title}}
+            <br>
+            <br/>
+            {{form.image.label}}
+            {{form.image}}
+
+            <button type="submit" class="btn-primary">
+                POST!
+            </button>
+
+        </form>
+
+    </div>
+    </div>
+
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{% static 'meme/js/like_ajax.js' %}"></script>
+
+
+
+
+</body>
+</html>

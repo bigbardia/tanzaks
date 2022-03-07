@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,700&display=swap');
+
+
+.main {
+    margin: 30px;
+}
+
+.meme_form {
+
+    width: 50%;
+    border: 10px solid black;
+    padding: 20px;
+    position: fixed;
+    left: 50%;
+    bottom: 5px;
+    background-color: gray;
+    
+
+    
+
+  }
+
+img{
+    min-height: 400px;
+    min-width: 400px;
+    max-width: 600px;
+    max-height: 600px;
+    border: solid 5px gray;
+    text-align: center;
+}
+
+.meme {
+    text-align: center;
+}
+
+.title {
+    margin-right: 250px;
+    color: white;
+    text-align: left;
+    display: inline-block;
+    background-color: black;
+    font-family: 'Roboto Mono', monospace;
+    
+}
+
+.karbar {
+    
+    text-align: left;
+    color: rgb(179, 176, 14);
+    font-size: medium;
+    font-family: 'Roboto Mono', monospace;
+    display: inline-block;
+    background-color: black;
+
+
+
+
+
+}
+
+
+body {
+    background-attachment: fixed;
+    background-image: url("/static/meme/img/background.jpg");
+    background-size: cover;
+}
+

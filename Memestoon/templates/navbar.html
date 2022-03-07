@@ -1,0 +1,9 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'main/css/navbar.css' %}">
+
+<ul>
+    <li><a href="{% url 'meme' %}">Memes</a></li>
+    <li><a href="{% url 'login' %}">login</a></li>
+    <li><a href="{% url 'signup' %}">sign up</a></li>
+</ul>
+
