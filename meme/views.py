@@ -37,24 +37,21 @@ class MemeView(LoginRequiredMixin , View):
         if is_ajax(request):
         
             meme = Meme.objects.get(pk = request.POST["pk"])
-            s_key = f"has_liked{request.POST['pk']}"
-            if s_key in request.session:
-                meme.likes -= 1
-                meme.save()
-                request.session.pop(s_key)
-            else:
-                meme.likes += 1
-                meme.save()
-                request.session[s_key] = True
 
-            return JsonResponse([meme.likes] ,status=200 , safe = False)
+            if meme.likes.filter(pk = request.user.pk).exists():
+                meme.likes.remove(request.user)
+            else:
+                meme.likes.add(request.user)
+        
+    
+            return JsonResponse([meme.likes.count()] ,status=200 , safe = False)
         
         
         elif request.POST.get("NEW" , False) or request.POST.get("LIKE" , False):
             
             request.session["NEW"] =  request.POST.get("NEW" , False)
             request.session["LIKE"] = request.POST.get("LIKE" , False)
-            print(request.session["NEW"] , request.session["LIKE"])
+        
             return redirect("meme")
 
 
@@ -66,7 +63,7 @@ class MemeView(LoginRequiredMixin , View):
             form = MemeForm(request.POST , request.FILES)
             if form.is_valid():
                 meme = form.save(commit = False)
-                meme.karbar = request.user
+                meme.user = request.user
                 meme.save()
                 return redirect("meme")
             return redirect("meme")

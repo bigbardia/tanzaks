@@ -14,11 +14,12 @@ class Meme(models.Model):
     image = models.ImageField(upload_to = "memes")
     title = models.CharField(max_length=50)
 
-    karbar = models.ForeignKey(Karbar , on_delete=models.CASCADE)
-    likes = models.IntegerField(default=0)
+    user = models.ForeignKey(Karbar , on_delete=models.CASCADE , related_name="user")
+    likes = models.ManyToManyField(Karbar)
+
     timestamp = models.DateTimeField(auto_now_add=True)
 
     objects = MemeManager()
 
     def __str__(self):
-        return self.karbar.username + " "  + self.title
+        return self.user.username + " "  + self.title

@@ -45,14 +45,14 @@
             <img src="{{obj.image.url}}" >
             <br>
             <p class="karbar">
-                meme by : {{obj.karbar.username}} &nbsp;&nbsp; {{obj.timestamp}}
+                meme by : {{obj.user.username}} &nbsp;&nbsp; {{obj.timestamp}}
             </p>
 
 
             <form method="post" id = "{{obj.pk}}">{% csrf_token %} 
                 <input type="hidden" name="pk" value="{{obj.pk}}">
                 <button onclick="LikeMeme('{{obj.pk}}')" type="button" id="btn{{obj.pk}}">
-                    LIKE : {{obj.likes}}
+                    LIKE : {{obj.likes.count}}
                 </button>
             </form>
 
